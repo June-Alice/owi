@@ -14,7 +14,7 @@ url: "http://owi.icu" # the base hostname & protocol for your site
 github_username:  June-Alice
 paginate: 5
 theme-dark: false #Set to true to change to dark website theme
-
+intensedebate_comments: true
 plugins: [jekyll-paginate, kramdown]
 # Build settings
 markdown: kramdown
