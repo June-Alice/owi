@@ -20,4 +20,4 @@ plugins: [jekyll-paginate, kramdown]
 # Build settings
 markdown: kramdown
 #talkyard评论服务
-talkyard_server_url: https://comments-for-your-site.talkyard.net
+talkyard_server_url: https://comments-for-www-owi-icu.talkyard.net
