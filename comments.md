@@ -1,5 +1,5 @@
 ---
 layout: page
-title : 评论或者建议
+title : 评论'or'建议
 permalink: /comments/
 ---
