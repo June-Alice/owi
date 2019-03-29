@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: java杂记
-permalink: /java/
 category: "java"
+permalink: /java/
 tagline: "这里记录着“java”"
 ---
