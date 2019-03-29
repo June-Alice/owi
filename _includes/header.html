@@ -6,14 +6,16 @@
 <center>  {{site.description}} </center>
 </div>
 <div class="wrapper">
-  <div class="trigger site-navigation">
-    <a class="page-link" href="{{site.url}}{{site.baseurl}}">开头</a>
+  <center>
+    <div class="trigger site-navigation">
+      <a class="page-link" href="{{site.url}}{{site.baseurl}}">最开始的地方</a>
 
-    {% for sitePage in site.pages %}
-    {% if sitePage.title %}
+      {% for sitePage in site.pages %}
+      {% if sitePage.title %}
 
-    <span class="exclamationMark">/</span><a class="page-link" href="{{sitePage.url | prepend: site.baseurl }}">{{sitePage.title}}</a>
-    {% endif %}
-    {% endfor %}
-  </div>
+      <span class="exclamationMark">/</span><a class="page-link" href="{{sitePage.url | prepend: site.baseurl }}">{{sitePage.title}}</a>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </center>
 </div>
