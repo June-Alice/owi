@@ -65,18 +65,18 @@ body.light {
     &.postLink{
       color: darken($l-link-color, 50%) !important;
 
-      &:visited {
+      /*&:visited {
           color: $l-crimson !important;
           border-color: $l-crimson;
-      }
+      }*/
     }
     &.post-title-link{
       color: darken($l-link-color, 50%) !important;
 
-      &:visited {
+      /*&:visited {
           color: $l-crimson !important;
           border-color: $l-crimson;
-      }
+      }*/
     }
   }
 
