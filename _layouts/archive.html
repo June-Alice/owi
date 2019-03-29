@@ -1,48 +1,44 @@
 ---
 layout: page
 ---
-{% assign pagenum = 0 %}
-{% for post in site.posts %}
-{% for cat in post.categories %}
-{% if cat == page.category %}
-{% pagenum | plus: 1 %}
-{{ pagenum }}
-<div class="post postContent">
-  <div  class="postDate"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
+<!--<script>
+  window.onload=function () {
+    var ul = document.getElementById("ul");
+    var length = ul.children.length
+    alert(length)
+  }
+</script>-->
+<ul id="ul" class="list-posts">
+  {% assign empty_category = true %}
+  {% assign  pagenum1 = 0 %}
+  {% for post in site.posts %}
+  {% if post.categories contains page.category %}
+  {% assign  pagenum1 = page.num %}
+  {%capture demo %}{{pagenum1|plus:1 }}{% endcapture %}
+  {{demo}}
+  <div class="post postContent">
+    <div  class="postDate"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
+    </div>
+    <div class="postTag">
+      {{post.tag}}
+    </div>
+    <br>
+    <div class="postTitle">
+      <a class='postLink' href="{{site.url}}{{site.baseurl}}{{post.url}}">{{post.title}}</a>
+    </div>
+    <div class="postExt">
+      {{post.excerpt}}
+    </div>
   </div>
-  <div class="postTag">
-    {{post.tag}}
-  </div>
-  <br>
-  <div class="postTitle">
-  <a class='postLink' href="{{site.url}}{{site.baseurl}}{{post.url}}">{{post.title}}</a>
-  </div>
-  <div class="postExt">
-    {{post.excerpt}}
-  </div>
-</div>
-{% endif %}
-{% endfor %}
-{% endfor %}
-
-{% if paginator.total_pages > 1 %}
-<nav class="pagination">
-  {% if paginator.previous_page %}
-  <a class="paginationLink" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
-  {% endif %}
-
-  {% for page in (1..paginator.total_pages) %}
-  {% if page == paginator.page %}
-  <em class="paginationLink paginationLinkCurrent">{{ page }}</em>
-  {% elsif page == 1 %}
-  <a class="paginationLink" href="/">{{ page }}</a>
-  {% else %}
-  <a class="paginationLink" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+  {% assign empty_category = false %}
   {% endif %}
   {% endfor %}
 
-  {% if paginator.next_page %}
-  <a class="paginationLink" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
+  {% if empty_category %}
+  <li class="empty-post-list">
+    It seems that there are no articles on that category,
+    please go back <a href="/">home</a> to see the full list of articles.
+  </li>
   {% endif %}
-</nav>
-{% endif %}
+
+</ul>

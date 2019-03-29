@@ -2,7 +2,7 @@
 layout: post
 title:  "今天是一个好日子"
 date:   2016-03-30 19:45:31 +0530
-categories: ["java", "science", "life"]
+categories: java
 author: "Hemang Kumar"
 ---
 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
