@@ -1,13 +1,23 @@
 ---
 layout: page
 ---
+<div class="wrapper">
+  <center>
+    <div class="trigger site-navigation">
+      <a class="page-link" href="{{site.url}}{{site.baseurl}}">最开始的地方</a>
 
+      {% for sitePage in site.pages %}
+      {% if sitePage.title %}
 
+      <span class="exclamationMark">/</span><a class="page-link" href="{{sitePage.url | prepend: site.baseurl }}">{{sitePage.title}}</a>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </center>
+</div>
 {% for post in site.posts %}
 {% for cat in post.categories %}
 {% if cat == page.category %}
-
-
 
 <div class="post postContent">
   <div  class="postDate"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
@@ -25,5 +35,26 @@ layout: page
 </div>
 {% endif %}
 {% endfor %}
-
 {% endfor %}
+
+{% if paginator.total_pages > 1 %}
+<nav class="pagination">
+  {% if paginator.previous_page %}
+  <a class="paginationLink" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
+  {% endif %}
+
+  {% for page in (1..paginator.total_pages) %}
+  {% if page == paginator.page %}
+  <em class="paginationLink paginationLinkCurrent">{{ page }}</em>
+  {% elsif page == 1 %}
+  <a class="paginationLink" href="/">{{ page }}</a>
+  {% else %}
+  <a class="paginationLink" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+  {% endif %}
+  {% endfor %}
+
+  {% if paginator.next_page %}
+  <a class="paginationLink" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
+  {% endif %}
+</nav>
+{% endif %}
