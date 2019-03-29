@@ -10,7 +10,7 @@ title: owi
 email: june3121@163.com
 description: lonely kid hides in heart 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://owi.icu" # the base hostname & protocol for your site
+url: "https://www.owi.icu" # the base hostname & protocol for your site
 github_username:  June-Alice
 paginate: 5
 theme-dark: false #Set to true to change to dark website theme
