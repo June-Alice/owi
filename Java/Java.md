@@ -1,7 +1,8 @@
 ---
 layout: archive
+title: java
 category: "java"
-permalink: /java/p2
+permalink: /java/p1
 tagline: ""
-num: 2
+num: 1
 ---

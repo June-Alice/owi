@@ -1,44 +1,87 @@
 ---
 layout: page
 ---
-<!--<script>
-  window.onload=function () {
-    var ul = document.getElementById("ul");
-    var length = ul.children.length
-    alert(length)
-  }
-</script>-->
 <ul id="ul" class="list-posts">
-  {% assign empty_category = true %}
-  {% assign  pagenum1 = 0 %}
-  {% for post in site.posts %}
-  {% if post.categories contains page.category %}
-  {% assign  pagenum1 = page.num %}
-  {%capture demo %}{{pagenum1|plus:1 }}{% endcapture %}
-  {{demo}}
-  <div class="post postContent">
-    <div  class="postDate"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
-    </div>
-    <div class="postTag">
-      {{post.tag}}
-    </div>
-    <br>
-    <div class="postTitle">
-      <a class='postLink' href="{{site.url}}{{site.baseurl}}{{post.url}}">{{post.title}}</a>
-    </div>
-    <div class="postExt">
-      {{post.excerpt}}
-    </div>
-  </div>
-  {% assign empty_category = false %}
-  {% endif %}
-  {% endfor %}
+    <!--声明一个变量，指示列表是否有帖子true=》没有-->
+    {% assign empty_category = true %}
 
-  {% if empty_category %}
-  <li class="empty-post-list">
-    It seems that there are no articles on that category,
-    please go back <a href="/">home</a> to see the full list of articles.
-  </li>
-  {% endif %}
+    <!--初始化totalpage-->
+    {% assign start = page.num | minus:1 |times:5 %}
+    {% assign end = page.num | times:6 %}
+
+    <!--循环打印帖子 site.posts -所有帖子- -->
+    {% for post in site.posts %}
+
+        <!-- post.categories 帖子的分类  page.category 当前页的分类-->
+        <!--post.categories 包含 page.category时 代表 当前帖子属于此页分类-->
+        {% if post.categories contains page.category %}
+
+            <!--此分类含有帖子 修改标记为 false-->
+            {% assign empty_category = false %}
+
+            <!--声明pagenum 并 +1  -->
+            {% assign pagenum = pagenum | plus:1.0 %}
+
+            <!--打印当前页-帖子-->
+            {%if start <= pagenum and end >= pagenum%}
+            <div class="post postContent">
+                <div class="postDate">
+                    <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d,
+                        %Y" }}
+                    </time>
+                </div>
+                <div class="postTag">
+                    {{post.tag}}
+                </div>
+                <br>
+                <div class="postTitle">
+                    <a class='postLink' href="{{site.url}}{{site.baseurl}}{{post.url}}">{{post.title}}</a>
+                </div>
+                <div class="postExt">
+                    {{post.excerpt}}
+                </div>
+            </div>
+            {% endif %}
+
+        {% endif %}
+    {% endfor %}
+    <!--计算总页数-->
+    {% assign totalpage = pagenum |divided_by:6 | ceil %}
+
+    {% if totalpage >1%}
+
+    <nav class="pagination">
+        {% if page.num == 1%}
+        <a class="paginationLink" href="javascript:void(0)">&laquo; 上一页</a>
+        {% else %}
+        <a class="paginationLink" href="/{{page.category}}/p{{ page.num|minus:1 }}">&laquo; 上一页</a>
+        {% endif%}
+        {% for i in (1..totalpage)%}
+
+            {% if i==page.num %}
+            <em class="paginationLink paginationLinkCurrent">{{ i }}</em>
+            {% else %}
+            <a class="paginationLink" href="/{{page.category}}/p{{ i }}">{{ i }}</a>
+            {% endif%}
+
+        {% endfor%}
+
+        {% if page.num==totalpage %}
+        <a class="paginationLink" href="javascript:void(0)">下一页 &raquo;</a>
+        {% else %}
+        <a class="paginationLink" href="/{{page.category}}/p{{ page.num | plus : 1 }}">下一页 &raquo;</a>
+        {% endif%}
+    </nav>
+
+    {% endif%}
+
+    <!--判断是否有帖子，如果没帖子 打印以下内容-->
+    {% if empty_category %}
+    <div class="post postContent">
+        <div class="postTitle">
+            <a class='postLink' href="/">这块地暂未开发，你先回去，过几天再来看看！</a>
+        </div>
+    </div>
+    {% endif %}
 
 </ul>
